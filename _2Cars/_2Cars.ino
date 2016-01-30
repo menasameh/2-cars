@@ -193,7 +193,7 @@ byte score = 0;
 //the maximum score achieved for all the games played, saved in EEPROM
 byte score_max; 
 //the base delay between game turns
-byte speedDelay = 150; 
+byte speedDelay = 100; 
 
 
 //pool of objects to reduce memory usage
@@ -229,9 +229,9 @@ void object_init() {
   if the current object is in the game 
   random(100) > 50 ==> is to reduce number of objects initiated
   ticks++ <5       ==> is to make sure that the minimum y distance 
-                       between 2 objects is 5
+                       between 2 objects is 7
 */
-  if(objects[curr_object].x!=0 || random(100) > 50 || ticks++ <5)
+  if(objects[curr_object].x!=0 || random(100) > 50 || ticks++ <7)
     return;
   objects[curr_object].x    = border_start_x+pos[random(4)];
   objects[curr_object].y    = border_start_y;
