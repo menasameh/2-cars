@@ -260,9 +260,23 @@ void draw_object(short pos){
  function to clear the object at position pos 
  by drawing a rectangle with color 0(black) on top of it
 */
-void clear_object(short pos){
+void clear_object(short pos,bool permenant){
+  if(permenant){
     vgaU.draw_rect(objects[pos].x-4, objects[pos].y, 9, 8, 0,0);
+    return;
+  }
+    //vgaU.draw_rect(objects[pos].x-4, objects[pos].y, 9, 8, 0,0);
+  if(objects[pos].type==1){
+    //vgaU.draw_rect(objects[pos].x-4, objects[pos].y, 8, 8, 2,2);
+    vgaU.draw_line(objects[pos].x-4, objects[pos].y, objects[pos].x+5, objects[pos].y, 0);
+  }
+  else{
+    //vgaU.draw_circle(objects[pos].x, objects[pos].y+4, 4, 2,2);
+    vgaU.draw_rect(objects[pos].x-4, objects[pos].y, 8, 4, 0,0);
+  }
 }
+
+
 
 
 /*
@@ -353,13 +367,17 @@ void check_collision(short i){
 void update_objects(){
   for(short i=0;i<5;++i){
     if(objects[i].x!=0){
-      clear_object(i);
+      
       short value = objects[i].y;
       //car on top of the cars 
       if(value>35){
+         clear_object(i, true);
          check_collision(i);
          return;
-        } 
+       } 
+       else{
+        clear_object(i, false);
+       }
       objects[i].y += 1;
     }
   }
